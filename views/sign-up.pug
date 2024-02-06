@@ -22,6 +22,10 @@ block content
         label.mb-2(for="confirmPassword") Confirm Password:
         input.form-control(type="password", id="confirmPassword", name="confirmPassword", required)
 
+      div.form-check.d-flex.align-items-center.gap-2
+        input.form-check-input.mt-0(type="checkbox", id="isAdmin", name="isAdmin")
+        label.form-check-label(for="isAdmin") Admin
+
       if errors 
         ul 
           each error in errors 

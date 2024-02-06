@@ -7,7 +7,7 @@ const User = require("../models/User");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+  res.render("index", { title: "Members Only", user: req.user });
 });
 
 router.get("/sign-up", (req, res) => {
@@ -79,9 +79,14 @@ router.post("/sign-up", [
           lastName: req.body.lastName,
           username: req.body.username,
           password: hashedPassword,
+          member: false,
+          isAdmin: req.body.isAdmin === "on",
         });
         await user.save();
-        res.redirect("/");
+        req.login(user, (err) => {
+          if (err) return next(err);
+          res.redirect("/");
+        });
       });
     } catch (error) {
       next(error);
