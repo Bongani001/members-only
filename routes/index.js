@@ -42,14 +42,19 @@ router.post("/sign-up", [
     }).exec();
     const errors = validationResult(req);
 
-    if (!userExists === null) {
-      const usernameError = "Username already exists";
+    if (userExists !== null) {
+      const usernameError = { msg: "Username already exists" };
       const user = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         username: req.body.username,
       };
-      res.render("sign-up", { title: "Sign Up", errors: usernameError, user });
+      res.render("sign-up", {
+        title: "Sign Up",
+        errors: [usernameError],
+        user,
+      });
+      return;
     }
 
     if (!errors.isEmpty()) {
@@ -59,6 +64,7 @@ router.post("/sign-up", [
         username: req.body.username,
       };
       res.render("sign-up", { title: "Sign Up", user, errors: errors.array() });
+      return;
     }
 
     try {

@@ -1,19 +1,20 @@
 extends layout
 
 block content
-  div.bg-light.vh-100.d-flex.flex-column.align-items-center.justify-content-center
-    h1.text-center.text-secondary.mb-4= title 
+  div.bg-light.min-vh-100.d-flex.flex-column.align-items-center.justify-content-center
+    p.fs-3.mt-3 #[strong #{title}]  to
+    h1.text-center.text-secondary.mb-4.fs-2 Members Only
 
     form.d-flex.flex-column.gap-3.mb-3.w-50(method="POST")
       div.form-group
         label.mb-2(for="firstName") First Name: 
-        input.form-control(type="text", id="firstName", name="firstName", required, value=(user ? user.firstName : ""))
+        input.form-control(type="text", id="firstName", name="firstName", value=(user ? user.firstName : ""))
       div.form-group
         label.mb-2(for="lastName") Last Name: 
-        input.form-control(type="text", id="lastName", name="lastName", required, value=(user ? user.lastName : ""))
+        input.form-control(type="text", id="lastName", name="lastName", value=(user ? user.lastName : ""))
       div.form-group
         label.mb-2(for="username") Username:
-        input.form-control(type="text", id="username", name="username", required, value=(user ? user.username : ""))
+        input.form-control(type="text", id="username", name="username", value=(user ? user.username : ""))
       div.form-group
         label.mb-2(for="password") Password:
         input.form-control(type="password", id="password", name="password", required)
@@ -24,7 +25,7 @@ block content
       if errors 
         ul 
           each error in errors 
-            li= error
+            li.text-danger.mb-2 #[strong #{error.msg}] 
       
       button.btn.btn-secondary(type="submit") Sign Up
    
