@@ -1,9 +1,10 @@
 extends layout
 
 block content
-  h1= title
+  div.container-fluid
+    h1= title
 
-  if user
-    p Welcome #{user.username}
-  else 
-    p You should Sign In first.
+    if user
+      p Hi, #{user.username}
+    else 
+      p.text-center You should Login first to see messages.

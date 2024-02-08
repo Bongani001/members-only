@@ -1,0 +1,13 @@
+extends layout
+
+block content 
+  div.d-flex.flex-column.align-items-center.justify-content-center.flex-fill
+    p.m-0.fs-3 Enter a secret passcode to become a member 
+    p 
+      em.text-muted (hint: he is the greatest footballer of all time!)
+    form.form-group.d-flex.flex-column.gap-3.align-items-center
+      input.form-control(type="text", name="secretPasscode", value=(secretValue ? secretValue : ""))
+      button.btn.btn-warning(type="submit") Submit
+    
+    if error
+      p= error
