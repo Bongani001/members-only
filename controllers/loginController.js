@@ -127,5 +127,15 @@ exports.login_post = asyncHandler(
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
+    failureMessage: true,
   })
 );
+
+exports.logout = asyncHandler((req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
