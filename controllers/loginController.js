@@ -1,7 +1,6 @@
-const express = require("express");
-const router = express.Router();
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
@@ -99,7 +98,8 @@ exports.membership_signup_get = asyncHandler((req, res, next) => {
 // Membership Sign-Up
 exports.membership_signup_post = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ username: req.user.username }).exec();
-  if (req.body.secretPasscode.toLowerCase() === ("messi" || "lionel messi")) {
+  console.log(req.body.secretPasscode.toLowerCase());
+  if (req.body.secretPasscode.toLowerCase() === "messi" || "lionel messi") {
     const updatedUser = new User({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -118,3 +118,14 @@ exports.membership_signup_post = asyncHandler(async (req, res, next) => {
     });
   }
 });
+
+exports.login_get = asyncHandler((req, res) => {
+  res.render("login-form", { title: "Login" });
+});
+
+exports.login_post = asyncHandler(
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  })
+);

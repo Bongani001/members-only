@@ -7,6 +7,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcryptjs");
 const User = require("./models/User");
 
 const indexRouter = require("./routes/index");
@@ -55,10 +56,11 @@ passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
       const user = await User.findOne({ username: username });
+      const match = await bcrypt.compare(password, user.password);
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
-      if (user.password !== password) {
+      if (!match) {
         return done(null, false, { message: "Incorrect password" });
       }
       return done(null, user);
@@ -80,6 +82,7 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+
 app.use(passport.initialize());
 app.use(passport.session());
 

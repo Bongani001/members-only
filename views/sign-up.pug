@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  div.bg-light.min-vh-100.d-flex.flex-column.align-items-center.justify-content-center
+  div.bg-light.d-flex.flex-column.align-items-center.justify-content-center
     p.fs-3.mt-3 #[strong #{title}]  to
     h1.text-center.text-secondary.mb-4.fs-2 Members Only
 
@@ -33,4 +33,4 @@ block content
       
       button.btn.btn-secondary(type="submit") Sign Up
    
-    p.text-center Have an account? #[a(href="/sign-in") Sign In]
+    p.text-center.mb-3 Have an account? #[a(href="/sign-in") Sign In]
