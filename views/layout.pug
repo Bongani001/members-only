@@ -10,7 +10,7 @@ html
       nav.navbar.bg-secondary.p-3
         a.navbar-brand.fw-bold.text-light(href="/") Members Only 
         if user
-          div.d-flex.align-items-center.gap-3
+          div.d-flex.align-items-center.justify-content-center.gap-3
             p= user.username
             a(href="/login") Log-out
         else

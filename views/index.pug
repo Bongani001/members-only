@@ -6,5 +6,7 @@ block content
 
     if user
       p Hi, #{user.username}
+      if user.member === false 
+        a(href="/membership-signup") Become a member
     else 
       p.text-center You should Login first to see messages.

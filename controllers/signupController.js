@@ -99,14 +99,22 @@ exports.membership_signup_get = asyncHandler((req, res, next) => {
 // Membership Sign-Up
 exports.membership_signup_post = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ username: req.user.username }).exec();
-  if (req.body.secretPasscode.toLowerCase() === "messi" || "lionel messi") {
+  if (req.body.secretPasscode.toLowerCase() === ("messi" || "lionel messi")) {
     const updatedUser = new User({
-      ...user,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      username: user.username,
+      password: user.password,
+      isAdmin: user.isAdmin,
       member: true,
+      _id: user.id,
     });
-    await User.findByIdAndUpdate(user._id, updatedUser, {});
-    res.redirect("/")
+    await User.findByIdAndUpdate(user.id, updatedUser);
+    res.redirect("/");
   } else {
-    res.render("membership-signup", {secretValue: req.body.secretPasscode, error: "Try again."})
+    res.render("membership-signup", {
+      secretValue: req.body.secretPasscode,
+      error: "Try again.",
+    });
   }
 });

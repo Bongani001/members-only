@@ -4,6 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/User");
@@ -21,6 +22,16 @@ main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(process.env.MONGODB);
 }
+const dbOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+
+const sessionStore = new MongoStore({
+  mongoUrl: process.env.MONGODB,
+  collectionName: "sessions",
+  ...dbOptions,
+});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -31,6 +42,10 @@ app.use(
     secret: process.env.SESSIONSECRET,
     resave: false,
     saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // Equals 1 day
+    },
   })
 );
 

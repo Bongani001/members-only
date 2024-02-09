@@ -16,4 +16,7 @@ router.post("/sign-up", signupController.signup_post )
 // Display Membership Sign-Up Page
 router.get("/membership-signup", signupController.membership_signup_get)
 
+// Membership Sign-Up
+router.post("/membership-signup", signupController.membership_signup_post)
+
 module.exports = router;
