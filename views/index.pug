@@ -2,12 +2,20 @@ extends layout
 
 block content
   div.container-fluid
-    h1= title
-
     if user
-      p Hi, #{user.username}
-      if user.member === false 
-        a(href="/membership-signup") Become a member
-      p #[a(href="/messages/message-create") Create a message]
+      div
+        p Hi, #{user.username}
+        if user.member === false 
+          a(href="/membership-signup") Become a member
+        p #[a(href="/messages/message-create") Create a message]
+
+      div 
+      h3= title
+      ul 
+        each message in messages 
+          li
+            h4= message.title 
+            p= message.text
+
     else 
       p.text-center You should Login first to see messages.

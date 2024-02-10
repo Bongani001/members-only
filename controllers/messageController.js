@@ -22,8 +22,8 @@ exports.message_post = [
     const errors = validationResult(req);
 
     const message = new Message({
-      title: req.body.title,
-      text: req.body.text,
+      title: req.body.title.replace(/&#x27;/g, "'"),
+      text: req.body.text.replace(/&#x27;/g, "'"),
       author: req.user._id,
       created: Date.now(),
     });

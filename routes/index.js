@@ -1,11 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const asyncHandler = require("express-async-handler");
 const loginController = require("../controllers/loginController");
+const Message = require("../models/Message");
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Message Board", user: req.user });
-});
+router.get(
+  "/",
+  asyncHandler(async (req, res, next) => {
+    const messages = await Message.find().exec();
+    res.render("index", { title: "Message Board", user: req.user,messages });
+  })
+);
 
 // Display Sign-Up Page
 router.get("/sign-up", loginController.signup_get);
