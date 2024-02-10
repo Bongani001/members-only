@@ -9,8 +9,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const User = require("./models/User");
-
 const indexRouter = require("./routes/index");
+const messageRouter = require("./routes/messageRouter");
+const isAuth = require("./middlewares/auth").isAuth;
 
 require("dotenv").config();
 const app = express();
@@ -100,6 +101,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", indexRouter);
+app.use("/messages",isAuth, messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

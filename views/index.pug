@@ -8,5 +8,6 @@ block content
       p Hi, #{user.username}
       if user.member === false 
         a(href="/membership-signup") Become a member
+      p #[a(href="/messages/message-create") Create a message]
     else 
       p.text-center You should Login first to see messages.

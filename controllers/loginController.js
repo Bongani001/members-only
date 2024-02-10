@@ -123,15 +123,30 @@ exports.login_get = asyncHandler((req, res) => {
   res.render("login-form", { title: "Login" });
 });
 
-exports.login_post = asyncHandler(
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-    failureMessage: true,
-  })
-);
+exports.login_post = asyncHandler((req, res, next) => {
+  passport.authenticate("local", function (err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      // re-render the login form with a message
+      console.log(info.message);
+      return res.render("login-form", {
+        title: "Login",
+        errors: [{ msg: info.message }],
+      });
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect("/");
+    });
+  })(req, res, next);
+});
 
 exports.logout = asyncHandler((req, res, next) => {
+  // Logout the User
   req.logout((err) => {
     if (err) {
       return next(err);

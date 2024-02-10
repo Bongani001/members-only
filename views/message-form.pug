@@ -1,0 +1,23 @@
+extends layout 
+
+block content 
+  div.bg-light.d-flex.flex-column.align-items-center.justify-content-center
+    p.fs-3.mt-3 #[strong #{title}]
+    h1.text-center.text-secondary.mb-4.fs-2 a message
+
+    form.d-flex.flex-column.gap-3.mb-3.w-50(method="POST")
+      div.form-group
+        label.mb-2(for="title") Title:
+        input.form-control(type="text", id="title", name="title" value=(message ? message.title : ""))
+      div.form-group
+        label.mb-2(for="text") Message:
+        textarea.form-control(type="text", id="text", name="text" value=(message ? message.text : ""))
+
+      if errors 
+        ul 
+          each error in errors 
+            li.text-danger.mb-2 #[strong #{error.msg}] 
+      
+      button.btn.btn-secondary(type="submit") Create
+   
+    p.text-center Go back to #[a(href="/") Home]

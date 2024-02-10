@@ -6,7 +6,7 @@ const MessageSchema = new Schema({
   title: { type: String, required: true },
   text: { type: String, required: true },
   author: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  created: Date,
+  created: {type: Date, default: Date.now()},
 });
 
 module.exports = mongoose.model("Message", MessageSchema);
