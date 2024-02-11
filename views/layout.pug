@@ -5,10 +5,13 @@ html
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN", crossorigin="anonymous")
     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL", crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sogdian&family=Protest+Revolution&family=Roboto:wght@100&display=swap" rel="stylesheet")
   body.p-0.m-0
     div.container-fluid.vh-100.d-flex.flex-column.p-0.position-relative
       nav.navbar.bg-secondary.py-2.px-3.w-100.position-sticky.top-0
-        a.navbar-brand.fw-bold.text-light(href="/") Members Only 
+        a.navbar-brand.fs-3.fw-bold.text-light.logo(href="/") Members Only 
         if user
           div.d-flex.align-items-center.justify-content-center.gap-3
             span.fw-bold.text-light= user.username

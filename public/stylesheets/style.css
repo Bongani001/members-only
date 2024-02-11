@@ -9,5 +9,15 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+.logo {
+  /* font-family: "Noto Sans Sogdian", sans-serif; */
+  font-family: "Roboto", sans-serif;
+  font-family: "Protest Revolution", sans-serif;
+}
+
+.home-title {
+  font-family: "Roboto", sans-serif;
 }

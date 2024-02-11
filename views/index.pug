@@ -7,9 +7,9 @@ block content
         p.fs-4 Hi, #{user.username}
 
     div.w-50
-        h3.mt-2.text-center.mb-2= title
+        h3.mt-2.text-center.mb-2.home-title= title
         if !user
-          p.text-center Login or Sign-up to create messages.
+          p.text-center.font-monospace Login or Sign-up to create messages.
         if user
           if user.member === false
             p.text-center To join our membership club, click here to #[a.text-decoration-none(href="/membership-signup") become a member.]
