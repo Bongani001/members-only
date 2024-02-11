@@ -32,6 +32,8 @@ const dbOptions = {
 const sessionStore = new MongoStore({
   mongoUrl: process.env.MONGODB,
   collectionName: "sessions",
+  autoRemove: "interval",
+  autoRemoveInterval: 10,
   ...dbOptions,
 });
 
@@ -100,7 +102,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", indexRouter);
-app.use("/messages",isAuth, messageRouter);
+app.use("/messages", isAuth, messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

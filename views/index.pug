@@ -7,15 +7,17 @@ block content
         p.fs-4 Hi, #{user.username}
 
     div.w-50
-        h3.text-center.mb-2= title
+        h3.mt-2.text-center.mb-2= title
+        if !user
+          p.text-center Login or Sign-up to create messages.
         if user
           if user.member === false
             p.text-center To join our membership club, click here to #[a.text-decoration-none(href="/membership-signup") become a member.]
           p.text-center.fs-6 #[a.text-decoration-none(href="/messages/create") Create a message]
-        div
-          ul.d-flex.flex-column.gap-3
+        div.pt-1
+          ul.d-flex.flex-column.gap-3.list-unstyled
             each message in messages 
-              li.d-flex.flex-column.justify-content-between.p-2.shadow.rounded.gap-2
+              li.p-2.shadow.rounded
                 div.w-100
                   if user
                     if user.member || user.isAdmin
@@ -23,9 +25,11 @@ block content
                         p.fw-bold= message.author.username
                         p= message.date
                   hr.my-2
-                  h6.fw-bold.m-0= message.title 
-                  p.text-muted= message.text
-                div
-                  if user
-                    if user.isAdmin 
-                      a.btn.btn-danger.py-1.px-2(href=`/messages/delete/${message._id}`) Delete
+                  div.d-flex.justify-content-between.gap-2
+                    div
+                      h6.fw-bold.m-0= message.title 
+                      p.text-muted= message.text
+                    div
+                      if user
+                        if user.isAdmin 
+                          a.btn.btn-danger.py-1.px-2(href=`/messages/delete/${message._id}`) Delete
