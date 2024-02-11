@@ -8,7 +8,7 @@ const Message = require("../models/Message");
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
-    const messages = await Message.find().exec();
+    const messages = await Message.find().populate("author").exec();
     res.render("index", { title: "Message Board", user: req.user,messages });
   })
 );

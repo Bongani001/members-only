@@ -99,7 +99,7 @@ exports.membership_signup_get = asyncHandler((req, res, next) => {
 exports.membership_signup_post = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ username: req.user.username }).exec();
   console.log(req.body.secretPasscode.toLowerCase());
-  if (req.body.secretPasscode.toLowerCase() === "messi" || "lionel messi") {
+  if (req.body.secretPasscode.toLowerCase() === ("messi" || "lionel messi")) {
     const updatedUser = new User({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -133,6 +133,7 @@ exports.login_post = asyncHandler((req, res, next) => {
       console.log(info.message);
       return res.render("login-form", {
         title: "Login",
+        username: req.body.username,
         errors: [{ msg: info.message }],
       });
     }

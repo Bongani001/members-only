@@ -42,3 +42,17 @@ exports.message_post = [
     }
   }),
 ];
+
+exports.message_delete_get = asyncHandler(async (req, res, next) => {
+  const message = await Message.findById(req.params.id).exec();
+
+  if (message === null) {
+    // If there is no message return an error
+    const error = new Error("Message Not Found.");
+    error.status = 404;
+    next(error);
+    return;
+  }
+  await Message.findByIdAndDelete(req.params.id);
+  res.redirect("/");
+});

@@ -8,7 +8,7 @@ block content
     form.d-flex.flex-column.gap-3.mb-3.w-50(method="POST")
       div.form-group
         label.mb-2(for="username") Username:
-        input.form-control(type="text", id="username", name="username")
+        input.form-control(type="text", id="username", name="username", value=(username ? username : ""))
       div.form-group
         label.mb-2(for="password") Password:
         input.form-control(type="password", id="password", name="password")

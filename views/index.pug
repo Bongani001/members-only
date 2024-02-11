@@ -7,15 +7,23 @@ block content
         p Hi, #{user.username}
         if user.member === false 
           a(href="/membership-signup") Become a member
-        p #[a(href="/messages/message-create") Create a message]
+        p #[a(href="/messages/create") Create a message]
 
       div 
       h3= title
       ul 
         each message in messages 
-          li
-            h4= message.title 
-            p= message.text
+          li.d-flex
+            div
+              if user.member || user.isAdmin
+                div
+                  p= message.author.username
+                  p= message.created
+              h4= message.title 
+              p= message.text
+            div 
+              if user.isAdmin 
+                a.btn.btn-danger(href=`/messages/delete/${message._id}`) Delete
 
     else 
       p.text-center You should Login first to see messages.
