@@ -92,7 +92,10 @@ exports.signup_post = [
 
 // Membership Sign-Up Page
 exports.membership_signup_get = asyncHandler((req, res, next) => {
-  res.render("membership-signup");
+  res.render("membership-signup", {
+    title: "Membership Sign Up",
+    user: req.user,
+  });
 });
 
 // Membership Sign-Up

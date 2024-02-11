@@ -25,7 +25,7 @@ exports.message_post = [
       title: req.body.title.replace(/&#x27;/g, "'"),
       text: req.body.text.replace(/&#x27;/g, "'"),
       author: req.user._id,
-      created: Date.now(),
+      created: new Date(),
     });
 
     if (!errors.isEmpty()) {

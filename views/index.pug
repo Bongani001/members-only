@@ -1,29 +1,31 @@
 extends layout
 
 block content
-  div.container-fluid
+  div.container-fluid.d-flex.flex-column.align-items-center.justify-content-center.bg-light
     if user
-      div
-        p Hi, #{user.username}
-        if user.member === false 
-          a(href="/membership-signup") Become a member
-        p #[a(href="/messages/create") Create a message]
+      div.align-self-start
+        p.fs-4 Hi, #{user.username}
 
-      div 
-      h3= title
-      ul 
-        each message in messages 
-          li.d-flex
-            div
-              if user.member || user.isAdmin
+    div.w-50
+        h3.text-center.mb-2= title
+        if user
+          if user.member === false
+            p.text-center To join our membership club, click here to #[a.text-decoration-none(href="/membership-signup") become a member.]
+          p.text-center.fs-6 #[a.text-decoration-none(href="/messages/create") Create a message]
+        div
+          ul.d-flex.flex-column.gap-3
+            each message in messages 
+              li.d-flex.flex-column.justify-content-between.p-2.shadow.rounded.gap-2
+                div.w-100
+                  if user
+                    if user.member || user.isAdmin
+                      div.d-flex.justify-content-between
+                        p.fw-bold= message.author.username
+                        p= message.date
+                  hr.my-2
+                  h6.fw-bold.m-0= message.title 
+                  p.text-muted= message.text
                 div
-                  p= message.author.username
-                  p= message.created
-              h4= message.title 
-              p= message.text
-            div 
-              if user.isAdmin 
-                a.btn.btn-danger(href=`/messages/delete/${message._id}`) Delete
-
-    else 
-      p.text-center You should Login first to see messages.
+                  if user
+                    if user.isAdmin 
+                      a.btn.btn-danger.py-1.px-2(href=`/messages/delete/${message._id}`) Delete
